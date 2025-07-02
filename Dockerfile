@@ -27,4 +27,4 @@ COPY config/keto.yml /etc/config/keto.yml
 EXPOSE 4466 4467
 
 ENTRYPOINT ["keto"]
-CMD ["keto", "serve", "--config", "/etc/config/keto.yml"]
+CMD ["serve", "--config", "/etc/config/keto.yml"]
