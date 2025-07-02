@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM golang:1.24.2-bullseye AS builder
+FROM golang:1.24.4-bullseye AS builder
 
 WORKDIR /go/src/github.com/ory/keto
 
