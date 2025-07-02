@@ -22,8 +22,9 @@ RUN go build -buildvcs=false -o /usr/bin/keto .
 FROM gcr.io/distroless/base-nossl-debian12:nonroot AS runner
 
 COPY --from=builder --chown=nonroot:nonroot /usr/bin/keto /usr/bin/keto
+COPY config/keto.yml /etc/config/keto.yml
 
 EXPOSE 4466 4467
 
 ENTRYPOINT ["keto"]
-CMD ["serve"]
+CMD ["keto", "serve", "--config", "/etc/config/keto.yml"]

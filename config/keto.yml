@@ -5,7 +5,13 @@ log:
 
 namespaces:
   - id: 0
-    name: videos
+    name: life_ai
+  - id: 1
+    name: genetica
+  - id: 2
+    name: human_network
+  - id: 3
+    name: shared_api_access
 
 serve:
   read:
