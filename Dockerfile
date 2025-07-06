@@ -2,16 +2,10 @@
 FROM golang:1.24.4-bullseye AS builder
 
 WORKDIR /go/src/github.com/ory/keto
-
 RUN apt-get update && apt-get upgrade -y
 
-COPY go.mod go.mod
-COPY go.sum go.sum
-COPY proto/go.mod proto/go.mod
-COPY proto/go.sum proto/go.sum
-
+COPY go.mod go.sum proto/go.mod proto/go.sum ./
 RUN go mod download
-
 COPY . .
 
 RUN go build -buildvcs=false -o /usr/bin/keto .
@@ -19,12 +13,15 @@ RUN go build -buildvcs=false -o /usr/bin/keto .
 # Final image with shell
 FROM debian:bullseye
 
-COPY --from=builder --chown=nonroot:nonroot /usr/bin/keto /usr/bin/keto
+RUN apt-get update && apt-get install -y ca-certificates
+
+COPY --from=builder /usr/bin/keto /usr/bin/keto
 COPY config/keto.yml /etc/config/keto.yml
 COPY config/relation-tuples/ /etc/config/relation-tuples/
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
-USER nonroot
+EXPOSE 4466 4467
+
 ENTRYPOINT ["/entrypoint.sh"]
