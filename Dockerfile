@@ -16,8 +16,8 @@ COPY . .
 
 RUN go build -buildvcs=false -o /usr/bin/keto .
 
-# Final minimal image
-FROM gcr.io/distroless/base-debian12:nonroot AS runner
+# Final image with shell
+FROM debian:bullseye
 
 COPY --from=builder --chown=nonroot:nonroot /usr/bin/keto /usr/bin/keto
 COPY config/keto.yml /etc/config/keto.yml
