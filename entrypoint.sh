@@ -1,18 +1,20 @@
 #!/bin/bash
 set -euo pipefail
 
-KETO_SERVICE_MODE=${KETO_SERVICE_MODE:-read}
+MODE=${KETO_SERVICE_MODE:-serve}
 RELATION_TUPLES_DIR=${RELATION_TUPLES_DIR:-/etc/config/relation-tuples}
 KETO_CONFIG=${KETO_CONFIG:-/etc/config/keto.yml}
 
-if [ "$KETO_SERVICE_MODE" = "write" ]; then
-  echo "[INFO] Initializing relation-tuples from $RELATION_TUPLES_DIR..."
+if [ "$MODE" = "init" ]; then
+  echo "[INIT] Importing relation-tuples from $RELATION_TUPLES_DIR..."
+  export KETO_WRITE_REMOTE=${KETO_WRITE_REMOTE:-http://localhost:4467}
   if [ -d "$RELATION_TUPLES_DIR" ]; then
-    /usr/bin/keto relation-tuple create "$RELATION_TUPLES_DIR" || echo "[WARN] Import failed"
+    /usr/bin/keto relation-tuple create "$RELATION_TUPLES_DIR"
   else
-    echo "[WARN] No relation-tuples directory found at $RELATION_TUPLES_DIR"
+    echo "[WARN] $RELATION_TUPLES_DIR not found."
   fi
+  exit 0
 fi
 
-echo "[INFO] Starting ORY Keto with config $KETO_CONFIG"
+echo "[SERVE] Starting ORY Keto with config $KETO_CONFIG"
 exec /usr/bin/keto serve --config "$KETO_CONFIG"
