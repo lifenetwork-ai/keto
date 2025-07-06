@@ -1,0 +1,10 @@
+{
+  "namespace": "user_profile",
+  "object": "genetica:bob",
+  "relation": "viewer",
+  "subject_set": {
+    "namespace": "user_profile",
+    "object": "genetica:bob",
+    "relation": "shared_with"
+  }
+}

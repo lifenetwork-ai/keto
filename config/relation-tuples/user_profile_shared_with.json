@@ -1,0 +1,6 @@
+{
+  "namespace": "user_profile",
+  "object": "genetica:bob",
+  "relation": "shared_with",
+  "subject_id": "user:life_ai:alice"
+}

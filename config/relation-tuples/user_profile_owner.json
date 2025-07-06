@@ -1,0 +1,6 @@
+{
+  "namespace": "user_profile",
+  "object": "genetica:bob",
+  "relation": "owner",
+  "subject_id": "user:genetica:bob"
+}

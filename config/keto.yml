@@ -5,11 +5,7 @@ log:
 
 namespaces:
   - id: 0
-    name: life_ai
-  - id: 1
-    name: genetica
-  - id: 2
-    name: human_network
+    name: user_profile
 
 serve:
   read:
