@@ -24,5 +24,7 @@ COPY config/keto.yml /etc/config/keto.yml
 COPY config/relation-tuples/ /etc/config/relation-tuples/
 COPY entrypoint.sh /entrypoint.sh
 
+RUN chmod +x /entrypoint.sh
+
 USER nonroot
 ENTRYPOINT ["/entrypoint.sh"]
