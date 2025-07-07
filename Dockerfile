@@ -13,7 +13,9 @@ RUN go build -buildvcs=false -o /usr/bin/keto .
 # Final image with shell
 FROM debian:bullseye
 
-RUN apt-get update && apt-get install -y ca-certificates
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    curl
 
 COPY --from=builder /usr/bin/keto /usr/bin/keto
 COPY config/keto.yml /etc/config/keto.yml
